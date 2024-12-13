@@ -33,15 +33,25 @@ async function activateXR() {
   //   new THREE.MeshBasicMaterial({color: 0xffff00})
   // ];
 
-  const materials = [
-    new THREE.MeshBasicMaterial({ map: 'test.jpg', side: THREE.DoubleSide })
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load('test.jpg', (texture) => {
+
+    const materials = [
+    new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide })
   ];
+  const img = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1), materials);
+  img.position.set(0, 0, -1);
+  scene.add(img);
+
+  });
+
+
 
   // Create the img and add it to the demo scene.
   // const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.2, 0.2, 0.2), materials);
-  const img = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1), materials);
-  img.position.set(1, 1, 1);
-  scene.add(img);
+  // const img = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1), materials);
+  // img.position.set(0, 0, -1);
+  // scene.add(img);
 
   // Set up the WebGLRenderer, which handles rendering to the session's base layer.
   const renderer = new THREE.WebGLRenderer({
