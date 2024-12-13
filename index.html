@@ -39,7 +39,7 @@ async function activateXR() {
 
   // Create the img and add it to the demo scene.
   // const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.2, 0.2, 0.2), materials);
-  const img = new THREE.Mesh(new THREE.PlaneGeometry(0.2, 0.8), materials);
+  const img = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1), materials);
   img.position.set(1, 1, 1);
   scene.add(img);
 
@@ -82,7 +82,7 @@ async function activateXR() {
     if (pose) {
       // In mobile AR, we only have one view.
       const view = pose.views[0];
-u
+
       const viewport = session.renderState.baseLayer.getViewport(view);
       renderer.setSize(viewport.width, viewport.height)
 
