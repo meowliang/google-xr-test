@@ -34,15 +34,17 @@ async function activateXR() {
   // ];
 
   const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load('test.jpg', (texture) => {
+  const texture = textureLoader.load('test.jpg', () => 
+    console.log("Texture loaded successfully"), 
+    undefined, 
+    (err) => console.error("Error loading texture:", err)
 
-    const materials = [
-    new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide })
-  ];
+  );
+
+  const materials = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+
   const img = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1), materials);
   img.position.set(1, 1, 1);
-
-  });
 
   scene.add(img);
 
