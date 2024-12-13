@@ -40,10 +40,13 @@ async function activateXR() {
     new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide })
   ];
   const img = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1), materials);
-  img.position.set(0, 0, -1);
-  scene.add(img);
+  img.position.set(1, 1, 1);
 
   });
+
+  scene.add(img);
+
+  console.log("img added");
 
 
 
