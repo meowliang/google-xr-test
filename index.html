@@ -23,20 +23,25 @@ async function activateXR() {
 
   const scene = new THREE.Scene();
 
-  // The cube will have a different color on each side.
+  // The img will have a different color on each side.
+  // const materials = [
+  //   new THREE.MeshBasicMaterial({color: 0xff0000}),
+  //   new THREE.MeshBasicMaterial({color: 0x0000ff}),
+  //   new THREE.MeshBasicMaterial({color: 0x00ff00}),
+  //   new THREE.MeshBasicMaterial({color: 0xff00ff}),
+  //   new THREE.MeshBasicMaterial({color: 0x00ffff}),
+  //   new THREE.MeshBasicMaterial({color: 0xffff00})
+  // ];
+
   const materials = [
-    new THREE.MeshBasicMaterial({color: 0xff0000}),
-    new THREE.MeshBasicMaterial({color: 0x0000ff}),
-    new THREE.MeshBasicMaterial({color: 0x00ff00}),
-    new THREE.MeshBasicMaterial({color: 0xff00ff}),
-    new THREE.MeshBasicMaterial({color: 0x00ffff}),
-    new THREE.MeshBasicMaterial({color: 0xffff00})
+    new THREE.MeshBasicMaterial({ map: 'test.jpg', side: THREE.DoubleSide })
   ];
 
-  // Create the cube and add it to the demo scene.
-  const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.2, 0.2, 0.2), materials);
-  cube.position.set(1, 1, 1);
-  scene.add(cube);
+  // Create the img and add it to the demo scene.
+  // const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.2, 0.2, 0.2), materials);
+  const img = new THREE.Mesh(new THREE.PlaneGeometry(0.2, 0.8), materials);
+  img.position.set(1, 1, 1);
+  scene.add(img);
 
   // Set up the WebGLRenderer, which handles rendering to the session's base layer.
   const renderer = new THREE.WebGLRenderer({
@@ -77,7 +82,7 @@ async function activateXR() {
     if (pose) {
       // In mobile AR, we only have one view.
       const view = pose.views[0];
-
+u
       const viewport = session.renderState.baseLayer.getViewport(view);
       renderer.setSize(viewport.width, viewport.height)
 
