@@ -81,7 +81,25 @@ async function activateXR() {
 
   // A 'local' reference space has a native origin that is located
   // near the viewer's position at the time the session was created.
-  const referenceSpace = await session.requestReferenceSpace('local');
+  // const referenceSpace = await session.requestReferenceSpace('local');
+  const referenceSpace = await session.requestReferenceSpace('local-floor');
+
+  if (frame.createAnchor) {
+    const anchorPose = new XRRigidTransform({ x: 0, y: 0, z: -1 });
+    const anchor = frame.createAnchor(anchorPose, referenceSpace);
+
+    anchor.context = { object: img }; //saves a reference to the object
+
+    session.addEventListener('anchorchange', (event) => {
+      const anchor = event.anchor;
+      if (anchor.context && anchor.context.object) {
+        //update object position to match anchor
+        const matrix = new THREE.Matrix4().fromArray(anchor.transform.matrix);
+        anchor.context.object.matrix.fromArray(anchor.transform.matrix);
+        anchor.context.object.updateMatrixWorld(true);
+      }
+    });
+  }
 
   // Create a render loop that allows us to draw on the AR view.
   const onXRFrame = (time, frame) => {
